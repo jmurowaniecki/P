@@ -1,0 +1,25 @@
+{
+    "name": "pdepaula",
+    "displayName": "PdePaula",
+    "description": "Conjunto de recursos básicos de aprendizagem em programação.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.48.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "p",
+            "aliases": ["PdPaula", "p"],
+            "extensions": [".p",".pdp",".pdpaula"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "p",
+            "scopeName": "source.p",
+            "path": "./syntaxes/p.tmLanguage.json"
+        }]
+    }
+}
