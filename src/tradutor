@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+
+# curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+
+tput civis
+
+declare -A VARIAVEL=()
+declare RESULTADO
+
+export VARIAVEL
+export RESULTADO
+
+# Soma dois ou mais números e armazena o $RESULTADO.
+ADICIONAR() { SOMA $@; }
+ADICIONA () { SOMA $@; }
+ADICIONE () { SOMA $@; }
+ADIÇAO   () { SOMA $@; }
+ADIÇÃO   () { SOMA $@; }
+ADICÃO   () { SOMA $@; }
+ADICAO   () { SOMA $@; }
+SOMAR    () { SOMA $@; }
+SOME     () { SOMA $@; }
+SOMA     () {
+    total=
+    for numero in $@
+    do  numero=${numero//[!0-9]/}
+        numero=${numero:-0}
+        total=$((total + numero))
+    done
+    RESULTADO=${total}
+    ESCREVE ${RESULTADO}
+}
+
+# Subtrai dois ou mais números e armazena o $RESULTADO.
+SUBTRACAO() { DIMINUI $@; }
+SUBTRAÇÃO() { DIMINUI $@; }
+SUBTRAIR () { DIMINUI $@; }
+DIMINUIR () { DIMINUI $@; }
+SUBTRAI  () { DIMINUI $@; }
+DIMINUA  () { DIMINUI $@; }
+DIMINUI  () {
+    total=
+    for numero in $@
+    do  numero=${numero//[!0-9]/}
+        numero=${numero:-0}
+        total=$((total - numero))
+    done
+    RESULTADO=${total}
+    ESCREVE ${RESULTADO}
+}
+
+REPETIR() { REPETE $@; }
+REPITA () { REPETE $@; }
+REPETE () {
+    vezes=$1; shift; shift
+    for x in $(seq $vezes)
+    do $@
+    done
+}
+
+VARIAVEL() { VARIÁVEL $@; }
+VARIÁVEL() {
+    variavel="${1}"; shift; shift
+    export "${variavel}"="$@"
+}
+
+ESCREVENDO() { ESCREVE "$@"; }
+ESCREVER  () { ESCREVE "$@"; }
+ESCREVE   () {
+    echo -en "\n  $@\n"
+    sleep .5
+}
+
+PERGUNTAR() { PERGUNTE "$@"; }
+PERGUNTA () { PERGUNTE "$@"; }
+PERGUNTE () {
+    echo -en "\e[1m   "
+    read -r "${1}"
+    echo -en "\e[0m"
+}
+
+ESPERAR() { espere "$@"; }
+ESPERA () { espere "$@"; }
+ESPERE () {
+    sleep ${1:-3}
+}
+
+SE() {
+    variavel="${1}"; shift
+    condicao="${1}"; shift
+
+    while [ $# ]
+    do  case "${1^^}" in
+            É|FOR) shift; logica=-eq; tipo=A;;
+            MAIOR) shift; logica=-gt; tipo=A;;
+            MENOR) shift; logica=-lt; tipo=A;;
+            IGUAL) shift; logica=-eq; tipo=A;;
+            VAZIO) shift; logica=-n ; tipo=V;;
+            A|QUE) shift;;
+            ENTÃO) shift;;
+            *) break
+        esac
+    done
+
+    valor="${1}"; shift; shift
+    case "${tipo}" in
+        A) [ ${variavel} ${logica} ${valor} ] && ${*};;
+        V) [ ${logica} ${variavel}          ] && ${*};;
+    esac
+
+}
+
+EXECUTAR() { $*; }
+EXECUTA () { $*; }
+EXECUTE () { $*; }
+
+source "$@"
+
+echo -en "\e[0m\n"
+tput cnorm
