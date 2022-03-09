@@ -3,7 +3,7 @@
     "displayName": "PdePaula",
     "description": "Conjunto de recursos básicos de aprendizagem em programação.",
     "homepage": "https://github.com/jmurowaniecki/P",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "publisher": "compilouit",
     "author": {
         "name": "John Murowaniecki",
@@ -33,19 +33,30 @@
         "Programming Languages"
     ],
     "scripts": {
-      "publish": "vsce publish revision"
+        "publish": "vsce publish revision"
     },
     "contributes": {
-        "languages": [{
-            "id": "p",
-            "aliases": ["PdPaula", "p"],
-            "extensions": [".p",".pdp",".pdpaula"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "p",
-            "scopeName": "source.p",
-            "path": "./syntaxes/p.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "p",
+                "aliases": [
+                    "PdPaula",
+                    "p"
+                ],
+                "extensions": [
+                    ".p",
+                    ".pdp",
+                    ".pdpaula"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "p",
+                "scopeName": "source.p",
+                "path": "./syntaxes/p.tmLanguage.json"
+            }
+        ]
     }
 }
