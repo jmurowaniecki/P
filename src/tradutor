@@ -11,6 +11,32 @@ declare RESULTADO
 export VARIAVEL
 export RESULTADO
 
+# Limpa a tela.
+LIMPAR() { LIMPA $*; }
+LIMPA() {
+    case ${1,,} in
+        tela) clear;
+    esac
+}
+
+ENQUANTO() {
+    ORIGEM=$1; shift; shift; shift; shift
+    LIMITE=$1; shift
+    INCREMENTADOR=0
+
+    while [ ${INCREMENTADOR} -lt ${LIMITE} ]; do
+        $@ && INCREMENTADOR=$(eval "echo $(echo '$'$ORIGEM)")
+    done
+}
+
+ENTAO() {
+    [ $? ] && ${*} || false
+}
+
+SENAO() {
+    [ ! $? ] && ${*}
+}
+
 # Soma dois ou mais números e armazena o $RESULTADO.
 ADICIONAR() { SOMA $@; }
 ADICIONA () { SOMA $@; }

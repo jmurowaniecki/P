@@ -2,13 +2,39 @@
     "name": "pdepaula",
     "displayName": "PdePaula",
     "description": "Conjunto de recursos básicos de aprendizagem em programação.",
+    "homepage": "https://github.com/jmurowaniecki/P",
     "version": "0.0.1",
+    "publisher": "compilouit",
+    "author": {
+        "name": "John Murowaniecki",
+        "email": "jmurowaniecki@gmail.com",
+        "url": "https://compilou.com.br"
+    },
+    "maintainers": [
+        "John Murowaniecki <jmurowaniecki@gmail.com>"
+    ],
+    "contributors": [],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jmurowaniecki/P.git"
+    },
+    "bugs": {
+        "url": "https://github.com/jmurowaniecki/P/issues"
+    },
+    "icon": "assets/icon.png",
+    "galleryBanner": {
+        "color": "#261d45",
+        "theme": "dark"
+    },
     "engines": {
         "vscode": "^1.48.0"
     },
     "categories": [
         "Programming Languages"
     ],
+    "scripts": {
+      "publish": "vsce publish revision"
+    },
     "contributes": {
         "languages": [{
             "id": "p",

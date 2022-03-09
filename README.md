@@ -4,6 +4,9 @@
 
 **.P de Paula** é uma extensão criada para o VS Code da meta-linguagem/biblioteca criada para facilitar o processo de aprendizagem de uma criança muito especial no universo da programação.
 
+![](assets/example.png)
+
+O intuito é utilizar da flexibilidade do shellscript combinado a uma biblioteca que possibilita a escrita de algoritmos de uma forma simples e despreocupada.
 
 Seus requisitos são unicamente **Bash 5**, **cURL**, **GIT** e o **VSCode** (_apenas para edição dos códigos e consumo da sintaxe_).
 
