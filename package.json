@@ -33,7 +33,9 @@
         "Programming Languages"
     ],
     "scripts": {
-        "publish": "vsce publish patch"
+        "publish:extension": "vsce publish patch",
+        "publish:repository": "vsce publish patch",
+        "publish": "npm run publish:extension && npm run publish:repository"
     },
     "contributes": {
         "languages": [
