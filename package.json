@@ -34,7 +34,7 @@
     ],
     "scripts": {
         "publish:extension": "vsce publish patch",
-        "publish:repository": "vsce publish patch",
+        "publish:repository": "git push origin master",
         "publish": "npm run publish:extension && npm run publish:repository"
     },
     "contributes": {
