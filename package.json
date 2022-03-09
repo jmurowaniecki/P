@@ -33,7 +33,7 @@
         "Programming Languages"
     ],
     "scripts": {
-        "publish": "vsce publish revision"
+        "publish": "vsce publish patch"
     },
     "contributes": {
         "languages": [

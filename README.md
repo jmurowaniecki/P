@@ -1,5 +1,10 @@
 # .P
 
+[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
+[cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
+
+
 [**Oi, se você é a Paula** clique aqui.](PAULA.md)
 
 **.P de Paula** é uma extensão criada para o VS Code da meta-linguagem/biblioteca criada para facilitar o processo de aprendizagem de uma criança muito especial no universo da programação.
@@ -10,6 +15,7 @@ O intuito é utilizar da flexibilidade do shellscript combinado a uma biblioteca
 
 Seus requisitos são unicamente **Bash 5**, **cURL**, **GIT** e o **VSCode** (_apenas para edição dos códigos e consumo da sintaxe_).
 
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 # Conteúdo e Instalação
 ## Contém partes móveis e peças pequenas!
@@ -33,3 +39,10 @@ ln -s ~/.vscode/extensions/P/src/tradutor ~/.local/bin/tradutor
 > ```sh
 > export PATH="${PATH}:~/.local/bin"
 > ```
+
+---
+
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
+
