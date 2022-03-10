@@ -1,4 +1,4 @@
-#!tradutor
+#!/usr/bin/env tradutor
 #
 #    ↑
 # Lembrando de sempre colocar na primeira linha do

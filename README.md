@@ -40,9 +40,9 @@ ln -s ~/.vscode/extensions/P/src/tradutor ~/.local/bin/tradutor
 > export PATH="${PATH}:~/.local/bin"
 > ```
 
----
 
+
+---
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
-

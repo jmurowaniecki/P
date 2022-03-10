@@ -76,6 +76,16 @@ DIMINUI  () {
     ESCREVE ${RESULTADO}
 }
 
+MULTIPLICOU() { MULTIPLICA $@; }
+MULTIPLICAR() { MULTIPLICA $@; }
+MULTIPLIQUE() { MULTIPLICA $@; }
+MULTIPLICA () { ESCREVE $(expr ${1} \* ${2}); }
+
+DIVIDIU() { DIVIDE $@; }
+DIVIDER() { DIVIDE $@; }
+DIVIDA () { DIVIDE $@; }
+DIVIDE () { ESCREVE $(expr ${1} \/ ${2}); }
+
 REPETIR() { REPETE $@; }
 REPITA () { REPETE $@; }
 REPETE () {
@@ -108,9 +118,7 @@ PERGUNTE () {
 
 ESPERAR() { espere "$@"; }
 ESPERA () { espere "$@"; }
-ESPERE () {
-    sleep ${1:-3}
-}
+ESPERE () { sleep ${1:-3}; }
 
 SE() {
     variavel="${1}"; shift
@@ -137,9 +145,9 @@ SE() {
 
 }
 
-EXECUTAR() { $*; }
-EXECUTA () { $*; }
-EXECUTE () { $*; }
+EXECUTAR() { $@; }
+EXECUTA () { $@; }
+EXECUTE () { $@; }
 
 source "$@"
 

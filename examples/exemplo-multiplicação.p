@@ -1,4 +1,4 @@
-#!tradutor
+#!/usr/bin/env tradutor
 #
 # Programa de exemplo para calcular a multiplicação de um número por outro número.
 # Autor: John
