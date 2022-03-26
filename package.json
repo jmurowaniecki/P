@@ -56,13 +56,6 @@
         "onTerminalProfile:PdPaula.terminal"
     ],
     "main": "./src/executor.js",
-    "enabledApiProposals": [
-        "extensionRuntime",
-        "findTextInFiles",
-        "notebookEditor",
-        "scmActionButton",
-        "terminalDataWriteEvent"
-    ],
     "contributes": {
         "languages": [
             {
