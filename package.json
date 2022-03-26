@@ -3,7 +3,7 @@
     "displayName": "PdePaula",
     "description": "Conjunto de recursos básicos de aprendizagem em programação.",
     "homepage": "https://github.com/jmurowaniecki/P",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "compilouit",
     "author": {
         "name": "John Murowaniecki",
@@ -57,39 +57,50 @@
     ],
     "main": "./src/executor.js",
     "enabledApiProposals": [
-        "extensionRuntime", "findTextInFiles", "notebookEditor", "scmActionButton", "terminalDataWriteEvent"
+        "extensionRuntime",
+        "findTextInFiles",
+        "notebookEditor",
+        "scmActionButton",
+        "terminalDataWriteEvent"
     ],
     "contributes": {
-        "languages": [{
-            "id": "p",
-            "aliases": [
-                "PdPaula",
-                "p"
-            ],
-            "PdPaulas": [
-                ".p",
-                ".pdp",
-                ".pdpaula"
-            ],
-            "configuration": "./language-configuration.json"
-        }],
+        "languages": [
+            {
+                "id": "p",
+                "aliases": [
+                    "PdPaula",
+                    "p"
+                ],
+                "PdPaulas": [
+                    ".p",
+                    ".pdp",
+                    ".pdpaula"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
         "terminal": {
-            "profiles": [{
-                "id": "PdPaula.terminal",
-                "title": "Terminal",
-                "icon": "$(debug)",
-                "path": "pdpaula"
-            }]
+            "profiles": [
+                {
+                    "id": "PdPaula.terminal",
+                    "title": "Terminal",
+                    "icon": "$(debug)",
+                    "path": "pdpaula"
+                }
+            ]
         },
         "menus": {
-            "editor/title": [{
-                "when": "resourceLangId == p",
-                "command": "PdPaula.execute-p-file",
-                "alt": "PdPaula.create-p-file",
-                "group": "navigation"
-            }]
+            "editor/title": [
+                {
+                    "when": "resourceLangId == p",
+                    "command": "PdPaula.execute-p-file",
+                    "alt": "PdPaula.create-p-file",
+                    "group": "navigation"
+                }
+            ]
         },
-        "commands": [{
+        "commands": [
+            {
                 "command": "PdPaula.execute-p-file",
                 "title": "Executar arquivo",
                 "icon": "assets/v1.gif"
@@ -100,14 +111,18 @@
                 "icon": "$(create)"
             }
         ],
-        "snippets": [{
-            "language": "p",
-            "path": "./snippets/snippets.json"
-        }],
-        "grammars": [{
-            "language": "p",
-            "scopeName": "source.p",
-            "path": "./syntaxes/p.tmLanguage.json"
-        }]
+        "snippets": [
+            {
+                "language": "p",
+                "path": "./snippets/snippets.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "p",
+                "scopeName": "source.p",
+                "path": "./syntaxes/p.tmLanguage.json"
+            }
+        ]
     }
 }
