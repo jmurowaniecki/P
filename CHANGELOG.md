@@ -1,4 +1,10 @@
-# Change Log
+# <img src="assets/pdpaula.gif" align="left" /> Change Log
+
+Se você tem alguma ideia, crítica, dica, sugestão ou opinião sobre o que pode ou deve ser feito - ou melhor ainda: evitado - gostaríamos que entrasse em contato abrindo uma issue descrevendo a situação.
+
+Lhe garantimos estar de braços abertos para sua opinião.
+
+---
 
 ## Unreleased
 
@@ -11,6 +17,15 @@
 - **TECH**: tokens para diferenciação de condições simples SE/SENÃO;
 - **TECH**: tokens para diferenciação de SWITCHES, CASES e outros;
 - **TECH**: man pages para o "interpretador"/executor;
+- **TECH**: categorização das demandas;
+- **TECH**: automatização na geração/atualização do arquivo de syntaxe;
+
+## version 1.0.0
+- Possibilidade de escrever os comandos com letras maiúsculas, apenas primeira maiúscula ou todas minúsculas (como a 'maioria dos adultos' faz no dia-a-dia);
+- Inclusos snippets comuns da linguagem;
+- Incluso botão "PLAY" para execução direta via VSCode;
+- Melhorias na arte das paradinhas;
+- Melhores formas de condições SE-ENTÃO-SENÃO (simplificação usando modelo do shell - ao menos até encontrar um modelo melhor de explorar os TOKENS);
 
 ## version 0.1.6
 - Correção de [blocos de instruções](docs/blocos-de-instruções.md);

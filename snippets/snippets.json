@@ -1,0 +1,37 @@
+{
+    "limpa": {
+      "prefix": ["limpa"],
+      "body": ["LIMPAR"],
+      "description": "Limpar a tela."
+    },
+    "se": {
+      "prefix": ["se-então-senão"],
+      "body": ["SE $${1:idade} É MAIOR QUE ${2:17} && {", "    ENTÃO ESCREVE \"Com $${1} anos já é adulto.\"", "} || {", "    SENÃO ESCREVE \"É criança ainda\"", "}"],
+      "description": "SE valor É MAIOR QUE numero... faz tal coisa.. Senão, faz outra.."
+    },
+    "se-então": {
+      "prefix": ["se-então"],
+      "body": ["SE $${1:idade} É MAIOR QUE ${2:17}", "ENTÃO ESCREVE \"Com $${1} anos já é adulto.\""],
+      "description": "SE valor É MAIOR QUE numero ENTÃO faz tal coisa.."
+    },
+    "adição": {
+      "prefix": ["adição", "adiciona", "soma", "some"],
+      "body": ["SOMA ${1:VALOR} ${2:VALORES}", "ESCREVE \"A soma dos valores ${1} e ${2} é $$RESULTADO.\""],
+      "description": "Somar conjuntos de valores"
+    },
+    "subtração": {
+      "prefix": ["diminui", "diminua", "subtrair"],
+      "body": ["SUBTRAI ${1:VALOR} ${2:VALORES}", "ESCREVE \"A subtração dos valores ${1} e ${2} é $$RESULTADO.\""],
+      "description": "Subtração dos conjuntos de valores"
+    },
+    "multiplicação": {
+      "prefix": ["multiplica"],
+      "body": ["MULTIPLICAR ${1:VALOR} ${2:VALORES}", "ESCREVE \"A subtração dos valores ${1} e ${2} é $$RESULTADO.\""],
+      "description": "Subtração dos conjuntos de valores"
+    },
+    "perguntar": {
+      "prefix": ["pergunta"],
+      "body": ["ESCREVE \"Digite um valor para ${1:ALGUMA_COISA}:\"", "PERGUNTA ${1}", "", "ESCREVE \"Você escreveu '$$1'\""],
+      "description": "Faz uma pergunta e armazena na variável informada."
+    }
+}
