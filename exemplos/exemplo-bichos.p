@@ -1,4 +1,4 @@
-#!/usr/bin/env tradutor
+#!/usr/bin/env pdpaula
 #
 # Autor: John <jmurowaniecki@gmail.com>
 #

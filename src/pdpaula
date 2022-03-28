@@ -1,70 +1,118 @@
 #!/usr/bin/env bash
+#
+# Interpretador de comandos .P de Paula.
+#
+# Author: John Murowaniecki <jmurowaniecki@gmail.com>
+#
+#
+# shellcheck disable=SC2068
+
+# porpose:SC1090
 
 tput civis
 
-declare -A VARIAVEL=()
+declare LAST_COND
 declare RESULTADO
-
-export VARIAVEL
-export RESULTADO
+export  RESULTADO
 
 
 
+# Resulta em um númeo aleatório entre os números informados.
+#
+# @usage ALEATORIO ENTRE 10 E 12
+#
+# @param DE  Um número.
+# @param ATÉ Outro número.
+function aleatorio() { ALEATORIO ${@}; }
+function aleatório() { ALEATORIO ${@}; }
+function Aleatorio() { ALEATORIO ${@}; }
+function Aleatório() { ALEATORIO ${@}; }
+function ALEATÓRIO() { ALEATORIO ${@}; }
+function ALEATORIO() {
+    DE="${2:-0}"
+    ATE="${4:-10}"
+    RESULTADO="$(shuf -i "${DE}-${ATE}" -n1)"
+}
 
-# Limpa a tela.
-function limpa()  { LIMPA $*; }
-function Limpa()  { LIMPA $*; }
-function limpar() { LIMPA $*; }
-function Limpar() { LIMPA $*; }
-function LIMPAR() { LIMPA $*; }
+
+
+# Ativa ou desativa a exibição do cursor durante a execução do programa.
+#
+# @usage CUSROR ON       - Mostra cursor na tela.
+# @usage CURSOR ESCONDER - Esconde o cursor.
+# @usage CURSOR DESATIVA - Esconde o cursor.
+#
+# @param Opção [ESCONDE ou ESCONDER, OFF, NÃO, DESATIVA ou DESATIVAR] para NÃO EXIBIR o cursor. Utilize qualquer outro valor para exibir.
+function cursor() { CURSOR ${@}; }
+function Cursor() { CURSOR ${@}; }
+function CURSOR() {
+    case ${1^^} in
+        OFF|NÃO|ESCONDE|DESATIV*) tput civis;;
+        *) tput cnorm;
+    esac
+}
+
+
+
+# Limpa a tela, variável ou arquivo.
+# Utilize para apagar os dados na tela, variáveis e arquivos antes de imprimir novos.
+#
+# @param Opção [TELA, ARQUIVO ou VARIÁVEL]
+function limpa()  { LIMPA ${@}; }
+function Limpa()  { LIMPA ${@}; }
+function limpar() { LIMPA ${@}; }
+function Limpar() { LIMPA ${@}; }
+function LIMPAR() { LIMPA ${@}; }
 function LIMPA() {
-    case ${1,,} in
-        tela) clear;
+    case "${1^^}" in
+        VAR*) export "${2}"= ;;
+        ARQ*) echo -n "" > "${2}";;
+        TELA) clear ;;
+        *) clear;
     esac
 }
 
 # Realiza determinada tarefa ENQUANTO for necessário.
-function enquanto() { ENQUANTO $@; }
-function Enquanto() { ENQUANTO $@; }
-function ENQUANTO() { ENQUANTO $@; }
+function enquanto() { ENQUANTO ${@}; }
+function Enquanto() { ENQUANTO ${@}; }
 function ENQUANTO() {
-    ORIGEM=$1; shift; shift; shift; shift
-    LIMITE=$1; shift
+    ORIGEM="${1}"; shift; shift; shift; shift
+    LIMITE="${1}"; shift
     INCREMENTADOR=0
 
-    while [ ${INCREMENTADOR} -lt ${LIMITE} ]; do
-        $@ && INCREMENTADOR=$(eval "echo $(echo '$'$ORIGEM)")
+    while [ "${INCREMENTADOR}" -lt "${LIMITE}" ]; do
+        ${@} && INCREMENTADOR=$(eval "echo $(echo '$'$ORIGEM)")
     done
 }
 
-function entao() { $@; }
-function então() { $@; }
-function Entao() { $@; }
-function Então() { $@; }
-function ENTÃO() { $@; }
+function entao() { ${@}; }
+function então() { ${@}; }
+function Entao() { ${@}; }
+function Então() { ${@}; }
+function ENTÃO() { ${@}; }
 function ENTAO() {
-    [ $? ] && ${*}
+    [ $? ] && ${@}
 }
 
-function senão() { $@; }
-function senao() { $@; }
-function Senão() { $@; }
-function Senao() { $@; }
-function SENÃO() { $@; }
+function senão() { ${@}; }
+function senao() { ${@}; }
+function Senão() { ${@}; }
+function Senao() { ${@}; }
+function SENÃO() { ${@}; }
 function SENAO() {
-    [ ! $? ] && ${*}
+    [ ! $? ] && ${@}
 }
 
 # Soma dois ou mais números e armazena o $RESULTADO.
-function ADICIONAR() { SOMA $@; }
-function ADICIONA () { SOMA $@; }
-function ADICIONE () { SOMA $@; }
-function ADICAO   () { SOMA $@; }
-function SOMAR    () { SOMA $@; }
-function SOME     () { SOMA $@; }
+function ADICIONAR() { SOMA ${@}; }
+function ADICIONA () { SOMA ${@}; }
+function ADICIONE () { SOMA ${@}; }
+function ADICAO   () { SOMA ${@}; }
+function SOMAR    () { SOMA ${@}; }
+function SOME     () { SOMA ${@}; }
 function SOMA     () {
     total=
-    for numero in $@
+    for numero in ${@}
     do  numero=${numero//[!0-9]/}
         numero=${numero:-0}
         total=$((total + numero))
@@ -74,14 +122,14 @@ function SOMA     () {
 }
 
 # Subtrai dois ou mais números e armazena o $RESULTADO.
-function SUBTRACAO() { DIMINUI $@; }
-function SUBTRAIR () { DIMINUI $@; }
-function DIMINUIR () { DIMINUI $@; }
-function SUBTRAI  () { DIMINUI $@; }
-function DIMINUA  () { DIMINUI $@; }
+function SUBTRACAO() { DIMINUI ${@}; }
+function SUBTRAIR () { DIMINUI ${@}; }
+function DIMINUIR () { DIMINUI ${@}; }
+function SUBTRAI  () { DIMINUI ${@}; }
+function DIMINUA  () { DIMINUI ${@}; }
 function DIMINUI  () {
     total=$1; shift
-    for numero in $@
+    for numero in ${@}
     do  numero=${numero//[!0-9]/}
         numero=${numero:-0}
         total=$((total - numero))
@@ -90,117 +138,127 @@ function DIMINUI  () {
     ESCREVE ${RESULTADO}
 }
 
-function multiplicou() { MULTIPLICA $@; }
-function multiplicar() { MULTIPLICA $@; }
-function multiplique() { MULTIPLICA $@; }
-function Multiplicou() { MULTIPLICA $@; }
-function Multiplicar() { MULTIPLICA $@; }
-function Multiplique() { MULTIPLICA $@; }
-function MULTIPLICOU() { MULTIPLICA $@; }
-function MULTIPLICAR() { MULTIPLICA $@; }
-function MULTIPLIQUE() { MULTIPLICA $@; }
-function multiplica () { MULTIPLICA $@; }
-function Multiplica () { MULTIPLICA $@; }
-function MULTIPLICA () { export RESULTADO=$(expr ${1} \* ${2}); }
+function multiplicou() { MULTIPLICA ${@}; }
+function multiplicar() { MULTIPLICA ${@}; }
+function multiplique() { MULTIPLICA ${@}; }
+function Multiplicou() { MULTIPLICA ${@}; }
+function Multiplicar() { MULTIPLICA ${@}; }
+function Multiplique() { MULTIPLICA ${@}; }
+function MULTIPLICOU() { MULTIPLICA ${@}; }
+function MULTIPLICAR() { MULTIPLICA ${@}; }
+function MULTIPLIQUE() { MULTIPLICA ${@}; }
+function multiplica () { MULTIPLICA ${@}; }
+function Multiplica () { MULTIPLICA ${@}; }
+function MULTIPLICA () {
+    export RESULTADO=$(( "${1}" * "${2}" ))
+}
 
-function dividiu() { DIVIDE $@; }
-function Dividiu() { DIVIDE $@; }
-function DIVIDIU() { DIVIDE $@; }
-function divider() { DIVIDE $@; }
-function Divider() { DIVIDE $@; }
-function DIVIDER() { DIVIDE $@; }
-function divida () { DIVIDE $@; }
-function Divida () { DIVIDE $@; }
-function DIVIDA () { DIVIDE $@; }
-function divide () { DIVIDE $@; }
-function Divide () { DIVIDE $@; }
-function DIVIDE () { export RESULTADO=$(expr ${1} \/ ${2}); }
+function dividiu() { DIVIDE ${@}; }
+function Dividiu() { DIVIDE ${@}; }
+function DIVIDIU() { DIVIDE ${@}; }
+function divider() { DIVIDE ${@}; }
+function Divider() { DIVIDE ${@}; }
+function DIVIDER() { DIVIDE ${@}; }
+function divida () { DIVIDE ${@}; }
+function Divida () { DIVIDE ${@}; }
+function DIVIDA () { DIVIDE ${@}; }
+function divide () { DIVIDE ${@}; }
+function Divide () { DIVIDE ${@}; }
+function DIVIDE () {
+    RESULTADO="$(( "${1}" / "${2}" ))"
+    export RESULTADO
+}
 
-function repetir() { REPETE $@; }
-function Repetir() { REPETE $@; }
-function REPETIR() { REPETE $@; }
-function repita () { REPETE $@; }
-function Repita () { REPETE $@; }
-function REPITA () { REPETE $@; }
-function repete () { REPETE $@; }
-function Repete () { REPETE $@; }
+function repetir() { REPETE ${@}; }
+function Repetir() { REPETE ${@}; }
+function REPETIR() { REPETE ${@}; }
+function repita () { REPETE ${@}; }
+function Repita () { REPETE ${@}; }
+function REPITA () { REPETE ${@}; }
+function repete () { REPETE ${@}; }
+function Repete () { REPETE ${@}; }
 function REPETE () {
     vezes=$1; shift; shift
-    for x in $(seq $vezes)
-    do $@
+    for x in $(seq "${vezes}")
+    do ${@} "${x}"
     done
 }
 
-function variável() { VARIAVEL "$@"; }
-function variavel() { VARIAVEL "$@"; }
-function Variável() { VARIAVEL "$@"; }
-function Variavel() { VARIAVEL "$@"; }
-function VARIÁVEL() { VARIAVEL "$@"; }
+function variável() { VARIAVEL ${@}; }
+function variavel() { VARIAVEL ${@}; }
+function Variável() { VARIAVEL ${@}; }
+function Variavel() { VARIAVEL ${@}; }
+function VARIÁVEL() { VARIAVEL ${@}; }
 function VARIAVEL() {
     variavel="${1}"; shift
     [[ "${1^^} ${2^^ }" == "DEVE SER" ]] \
     && { shift; shift; } \
     || { shift; }
-    export "${variavel}"="$@"
+    export "${variavel}"="${*}"
 }
 
-function escrevendo() { ESCREVE "$@"; }
-function escrever  () { ESCREVE "$@"; }
-function escreve   () { ESCREVE "$@"; }
-function Escrevendo() { ESCREVE "$@"; }
-function Escrever  () { ESCREVE "$@"; }
-function Escreve   () { ESCREVE "$@"; }
-function ESCREVENDO() { ESCREVE "$@"; }
-function ESCREVER  () { ESCREVE "$@"; }
+function escrevendo() { ESCREVE ${@}; }
+function escrever  () { ESCREVE ${@}; }
+function escreve   () { ESCREVE ${@}; }
+function Escrevendo() { ESCREVE ${@}; }
+function Escrever  () { ESCREVE ${@}; }
+function Escreve   () { ESCREVE ${@}; }
+function ESCREVENDO() { ESCREVE ${@}; }
+function ESCREVER  () { ESCREVE ${@}; }
 function ESCREVE   () {
-    echo -en "\n  $@\n"
+    echo -en "\n  ${*}\n"
     sleep .5
 }
 
-function retorna() { RETORNA "$@"; }
-function Retorna() { RETORNA "$@"; }
+function retorna() { RETORNA ${@}; }
+function Retorna() { RETORNA ${@}; }
 function RETORNA() {
-    echo -en "$@"
+    echo -en "${@}"
 }
 
-function perguntar() { PERGUNTE "$@"; }
-function pergunta () { PERGUNTE "$@"; }
-function pergunte () { PERGUNTE "$@"; }
-function Perguntar() { PERGUNTE "$@"; }
-function Pergunta () { PERGUNTE "$@"; }
-function Pergunte () { PERGUNTE "$@"; }
-function PERGUNTAR() { PERGUNTE "$@"; }
-function PERGUNTA () { PERGUNTE "$@"; }
+function perguntar() { PERGUNTE ${@}; }
+function pergunta () { PERGUNTE ${@}; }
+function pergunte () { PERGUNTE ${@}; }
+function Perguntar() { PERGUNTE ${@}; }
+function Pergunta () { PERGUNTE ${@}; }
+function Pergunte () { PERGUNTE ${@}; }
+function PERGUNTAR() { PERGUNTE ${@}; }
+function PERGUNTA () { PERGUNTE ${@}; }
 function PERGUNTE () {
     echo -en "\e[1m   "
     read -r "${1}"
     echo -en "\e[0m"
 }
 
-function ESPERAR() { espere "$@"; }
-function ESPERA () { espere "$@"; }
-function ESPERE () { sleep ${1:-3}; }
+function ESPERAR() { espere ${@}; }
+function ESPERA () { espere ${@}; }
+function ESPERE () {
+    sleep "${1:-3}"
+}
 
 function se() { SE ${@}; }
 function Se() { SE ${@}; }
 function SE() {
     variavel="${1}"; shift
-    condicao="${1}"; shift
 
     while [ $# ]
     do  case "${1^^}" in
             É|FOR) shift; logica=-eq; tipo=A;;
+            IGUAL) shift; logica=-eq; tipo=A;;
             MAIOR) shift; logica=-gt; tipo=A;;
             MENOR) shift; logica=-lt; tipo=A;;
-            IGUAL) shift; logica=-eq; tipo=A;;
-            VAZIO) shift; logica=-n ; tipo=V;;
+            VAZIO) shift; valor=""""; tipo=A; valueSet=true;;
             A|QUE) shift;;
-            ENTÃO) shift; execute=true;;
+            DO|Q*) shift;;
+            ENTÃO) shift; valor="${previous}"; valueSet=true; execute=true; break;;
             *) break
         esac
+        previous="${1}"
     done
 
-    valor="${1}"; shift; shift
+    [ -z "${valueSet}" ] && {
+        valor="${1}"; shift; shift
+    }
 
     re='^[0-9]+$'
     if ! [[ $variavel =~ $re ]]
@@ -208,45 +266,54 @@ function SE() {
     fi
 
     case "${tipo}" in
-        S) [[ "${variavel}" == "${valor}" ]] && ret=0 || ret=1;;
-        A) [ ${variavel} ${logica} ${valor} ] && ret=0 || ret=1;;
-        V) [ ${logica} ${variavel}          ] && ret=0 || ret=1;;
+        S) [[ "${variavel}" == "${valor}"  ]] && ret=0 || ret=1;;
+        A) case "${logica}" in
+        -eq) [ "${variavel}" -eq "${valor}" ] && ret=0 || ret=1;;
+        -gt) [ "${variavel}" -gt "${valor}" ] && ret=0 || ret=1;;
+        -lt) [ "${variavel}" -lt "${valor}" ] && ret=0 || ret=1;;
+        esac
     esac
 
-    [ "${execute}" = "true" ] && \
-    [ "${ret}"   -eq   0    ] && ${@}
+    [ "${ret}" -eq 0 ] && ${@}
 
-    LAST_COND=$ret
-    return $ret && ${*}
+    LAST_COND="${ret}"
+    return $ret
 }
 
-function PROCESSAR() { ITERA "$@"; }
-function PROCESSA()  { ITERA "$@"; }
-function ITERAR()    { ITERA "$@"; }
+function PROCESSAR() { ITERA ${@}; }
+function PROCESSA()  { ITERA ${@}; }
+function ITERAR()    { ITERA ${@}; }
 function ITERA() {
-    FUNCAO=$1; shift; shift
-    for valor in $@
-    do $FUNCAO "${valor}"
+    FUNCAO="${1}"; shift; shift
+    for valor in ${@}
+    do "${FUNCAO}" "${valor}"
     done
 }
 
-function executar() { $@; }
-function executa () { $@; }
-function execute () { $@; }
-function Executar() { $@; }
-function Executa () { $@; }
-function Execute () { $@; }
-function EXECUTAR() { $@; }
-function EXECUTA () { $@; }
-function EXECUTE () { $@; }
+function executar() { ${@}; }
+function executa () { ${@}; }
+function execute () { ${@}; }
+function Executar() { ${@}; }
+function Executa () { ${@}; }
+function Execute () { ${@}; }
+function EXECUTAR() { ${@}; }
+function EXECUTA () { ${@}; }
+function EXECUTE () {
+    ${@}
+}
 
-function saia() { SAIR "${@}"; }
-function Saia() { SAIR "${@}"; }
-function SAIA() { SAIR "${@}"; }
-function sair() { SAIR "${@}"; }
-function Sair() { SAIR "${@}"; }
-function SAIR() { exit "${@}"; }
+function saia() { SAIR ${@}; }
+function Saia() { SAIR ${@}; }
+function SAIA() { SAIR ${@}; }
+function sair() { SAIR ${@}; }
+function Sair() { SAIR ${@}; }
+function SAIR() {
+    exit "${@}"
+}
 
+function PARAMETROS() {
+    echo "${*} ${LAST_COND}"
+}
 
 [ "${SHELL}" != "pdpaula" ] && {
     [ "${#}" -lt 1 ] && {
@@ -254,21 +321,20 @@ function SAIR() { exit "${@}"; }
         export SHELLOLD="${SHELL}"
         export SHELL=pdpaula
 
-        /usr/bin/env bash --noprofile --rcfile "$(readlink $(which pdpaula))"
-
-
+        /usr/bin/env bash --noprofile --rcfile "$(readlink "$(which pdpaula)")"
 
         export PS1="${PSX}"
         export SHELL="${SHELLOLD}"
     }
 } || {
     export PS1="> "
-    for each in "$@"
-    do [ -f "${each}" ] && source "${each}"
+    tput cnorm
+    get=source
+    for f in "${@}"
+    do  [ -f "${f}" ] && \
+        $get "${f}"
     done
 }
-
-
 
 echo -en "\e[0m\n"
 tput cnorm

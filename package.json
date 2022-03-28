@@ -39,6 +39,8 @@
         "Programming Languages"
     ],
     "scripts": {
+        "system:show-function-names": "cat src/pdpaula | grep -E 'function (.*)\\(\\) \\{$' | sed -E 's/function ([A-Z]+).*/\\1/'",
+        "system:check-documentation": "for i in $(npm run -s system:show-function-names | sort); do [ ! -f \"docs/função-${i}.md\" ] && echo \"Função ${i} não documentada.\"; done",
         "publish:extension": "vsce publish patch",
         "publish:repository": "git push origin master",
         "publish": "npm run publish:extension && npm run publish:repository"
@@ -53,47 +55,45 @@
     "activationEvents": [
         "onCommand:PdPaula.execute-p-file",
         "onCommand:PdPaula.create-p-file",
+        "onCommand:PdPaula.jumpstart",
+        "onStartupFinished:PdPaula.jumpstart",
         "onTerminalProfile:PdPaula.terminal"
     ],
     "main": "./src/executor.js",
     "contributes": {
-        "languages": [
-            {
-                "id": "p",
-                "aliases": [
-                    "PdPaula",
-                    "p"
-                ],
-                "PdPaulas": [
-                    ".p",
-                    ".pdp",
-                    ".pdpaula"
-                ],
-                "configuration": "./language-configuration.json"
-            }
-        ],
+        "languages": [{
+            "id": "p",
+            "aliases": [
+                "PdPaula",
+                "p"
+            ],
+            "extensions": [
+                ".p",
+                ".pdp",
+                ".pdpaula"
+            ],
+            "configuration": "./language-configuration.json"
+        }],
         "terminal": {
-            "profiles": [
-                {
-                    "id": "PdPaula.terminal",
-                    "title": "Terminal",
-                    "icon": "$(debug)",
-                    "path": "pdpaula"
-                }
-            ]
+            "profiles": [{
+                "id": "PdPaula.terminal",
+                "title": "Terminal",
+                "icon": "$(debug)",
+                "path": "pdpaula"
+            }]
         },
         "menus": {
-            "editor/title": [
-                {
-                    "when": "resourceLangId == p",
-                    "command": "PdPaula.execute-p-file",
-                    "alt": "PdPaula.create-p-file",
-                    "group": "navigation"
-                }
-            ]
+            "editor/title": [{
+                "when": "resourceLangId == p",
+                "command": "PdPaula.execute-p-file",
+                "alt": "PdPaula.create-p-file",
+                "group": "navigation"
+            }, {
+                "command": "PdPaula.jumpstart",
+                "group": "navigation"
+            }]
         },
-        "commands": [
-            {
+        "commands": [{
                 "command": "PdPaula.execute-p-file",
                 "title": "Executar arquivo",
                 "icon": "assets/v1.gif"
@@ -101,21 +101,22 @@
             {
                 "command": "PdPaula.create-p-file",
                 "title": "Novo arquivo .P de Paula",
-                "icon": "$(create)"
+                "icon": "$(play)"
+            },
+            {
+                "command": "PdPaula.jumpstart",
+                "title": "Iniciando .P de Paula",
+                "icon": "$(bug)"
             }
         ],
-        "snippets": [
-            {
-                "language": "p",
-                "path": "./snippets/snippets.json"
-            }
-        ],
-        "grammars": [
-            {
-                "language": "p",
-                "scopeName": "source.p",
-                "path": "./syntaxes/p.tmLanguage.json"
-            }
-        ]
+        "snippets": [{
+            "language": "p",
+            "path": "./snippets/snippets.json"
+        }],
+        "grammars": [{
+            "language": "p",
+            "scopeName": "source.p",
+            "path": "./syntaxes/p.tmLanguage.json"
+        }]
     }
 }
