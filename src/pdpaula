@@ -17,6 +17,43 @@ export  RESULTADO
 
 
 
+function mostrar() { MOSTRE "${@}"; }
+function Mostrar() { MOSTRE "${@}"; }
+function MOSTRAR() { MOSTRE "${@}"; }
+function mostra () { MOSTRE "${@}"; }
+function Mostra () { MOSTRE "${@}"; }
+function MOSTRA () { MOSTRE "${@}"; }
+function mostre () { MOSTRE "${@}"; }
+function Mostre () { MOSTRE "${@}"; }
+function MOSTRE () {
+    echo -e "${@}" | sed 's,·,\x1b[0;31m·\x1b[0m,g;s,@,\x1b[0;32m@\x1b[0m,' | sed -E 's/(\*)/\x1b[0;33m\1\x1b[0m/g'
+}
+
+function POSICAO() {
+    VARIÁVEL linha  É "${1}"
+    VARIÁVEL coluna É "${2}"
+
+    posicao="${linha}"
+    posicao=$(expr "${linha}" \* 81)
+    posicao=$(expr "${posicao}" + "${coluna}")
+
+    # echo -e "o que tem na posição ($linha, $coluna)? ${CIDADE:$posicao:1} ($posicao) ${3}"
+    echo -en "${CIDADE:$posicao:1}"
+}
+
+function MARCA() {
+    VARIÁVEL desenho É "${1}"
+    VARIÁVEL linha   É "${3}"
+    VARIÁVEL coluna  É "${4}"
+
+    posicao=$linha
+    posicao=$(expr ${linha} \* 81)
+    posicao=$(expr $posicao + $coluna + 1)
+
+    CIDADE="${CIDADE:0:posicao-1}${desenho}${CIDADE:posicao}"
+}
+
+
 # Resulta em um númeo aleatório entre os números informados.
 #
 # @usage ALEATORIO ENTRE 10 E 12
@@ -85,22 +122,24 @@ function ENQUANTO() {
     done
 }
 
-function entao() { ${@}; }
-function então() { ${@}; }
-function Entao() { ${@}; }
-function Então() { ${@}; }
-function ENTÃO() { ${@}; }
+function entao() { ENTAO ${@}; }
+function então() { ENTAO ${@}; }
+function Entao() { ENTAO ${@}; }
+function Então() { ENTAO ${@}; }
+function ENTÃO() { ENTAO ${@}; }
 function ENTAO() {
-    [ $? ] && ${@}
+    echo "${LAST_COND} ${@}"
+    exit 1
+    [ "${LAST_COND}" ] && ${@}
 }
 
-function senão() { ${@}; }
-function senao() { ${@}; }
-function Senão() { ${@}; }
-function Senao() { ${@}; }
-function SENÃO() { ${@}; }
+function senão() { SENAO ${@}; }
+function senao() { SENAO ${@}; }
+function Senão() { SENAO ${@}; }
+function Senao() { SENAO ${@}; }
+function SENÃO() { SENAO ${@}; }
 function SENAO() {
-    [ ! $? ] && ${@}
+    [ ! "${LAST_COND}" ] && ${@}
 }
 
 # Soma dois ou mais números e armazena o $RESULTADO.
@@ -197,6 +236,15 @@ function VARIAVEL() {
     export "${variavel}"="${*}"
 }
 
+function MAPA() {
+    [[ "${1^^}" == "DA" ]] && shift;
+    variavel="${1}"; shift
+    [[ "${1^^} ${2^^ }" == "DEVE SER" ]] \
+    && { shift; shift; } \
+    || { shift; }
+    export "${variavel}"="${*}"
+}
+
 function escrevendo() { ESCREVE ${@}; }
 function escrever  () { ESCREVE ${@}; }
 function escreve   () { ESCREVE ${@}; }
@@ -230,6 +278,10 @@ function PERGUNTE () {
     echo -en "\e[0m"
 }
 
+function LETRA() {
+    read -n1 "${1}"
+}
+
 function ESPERAR() { espere ${@}; }
 function ESPERA () { espere ${@}; }
 function ESPERE () {
@@ -248,7 +300,7 @@ function SE() {
             MAIOR) shift; logica=-gt; tipo=A;;
             MENOR) shift; logica=-lt; tipo=A;;
             VAZIO) shift; valor=""""; tipo=A; valueSet=true;;
-            A|QUE) shift;;
+            QUE) shift;;
             DO|Q*) shift;;
             ENTÃO) shift; valor="${previous}"; valueSet=true; execute=true; break;;
             *) break
@@ -275,6 +327,7 @@ function SE() {
     esac
 
     [ "${ret}" -eq 0 ] && ${@}
+
 
     LAST_COND="${ret}"
     return $ret
